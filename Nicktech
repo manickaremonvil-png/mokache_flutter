@@ -1,0 +1,260 @@
+import 'package:flutter/material.dart';
+
+void main() {
+  runApp(
+    MaterialApp(
+      debugShowCheckedModeBanner: false,
+      home: NickTechApp(),
+    ),
+  );
+}
+
+class NickTechApp extends StatefulWidget {
+  @override
+  State<NickTechApp> createState() => _NickTechAppState();
+}
+
+class _NickTechAppState extends State<NickTechApp> {
+  Widget _paj = PajAkeyi();
+  String _tit = "NICKTECH";
+  bool _isLog = true;
+
+  void _nav(Widget p, String t) {
+    setState(() {
+      _paj = p;
+      _tit = t;
+    });
+    Navigator.pop(context);
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text(
+          _tit,
+          style: TextStyle(
+              color: Colors.white,
+              fontSize: 17,
+              fontWeight: FontWeight.bold),
+        ),
+        backgroundColor: Color(0xFF0D47A1),
+        iconTheme: IconThemeData(color: Colors.white),
+      ),
+      drawer: Drawer(
+        child: Column(
+          children: [
+            Container(
+              height: 100,
+              width: double.infinity,
+              color: Color(0xFF0D47A1),
+              child: Center(
+                child: Text(
+                  "NICKTECH",
+                  style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 22,
+                      fontWeight: FontWeight.bold),
+                ),
+              ),
+            ),
+            ListTile(
+                leading: Icon(Icons.home),
+                title: Text("Akèy"),
+                onTap: () => _nav(PajAkeyi(), "NICKTECH")),
+            ListTile(
+                leading: Icon(Icons.info),
+                title: Text("Kisa nou ye?"),
+                onTap: () => _nav(PajKisaNouYe(), "KISA NOU YE?")),
+            ListTile(
+                leading: Icon(Icons.code),
+                title: Text("Kou yo"),
+                onTap: () => _nav(PajKou(), "KOU YO")),
+            ListTile(
+                leading: Icon(Icons.contact_mail),
+                title: Text("Kontak"),
+                onTap: () => _nav(PajKontak(), "KONTAK")),
+            Spacer(),
+            if (_isLog)
+              ListTile(
+                leading: Icon(Icons.logout, color: Colors.red),
+                title: Text(
+                  "DEKONEKTE",
+                  style: TextStyle(
+                      color: Colors.red, fontWeight: FontWeight.bold),
+                ),
+                onTap: () {
+                  setState(() => _isLog = false);
+                  Navigator.pop(context);
+                },
+              ),
+            SizedBox(height: 20),
+          ],
+        ),
+      ),
+      body: _paj,
+    );
+  }
+}
+
+class PajAkeyi extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Center(
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Icon(Icons.developer_board,
+              size: 60, color: Color(0xFF0D47A1)),
+          SizedBox(height: 15),
+          Text("NICKTECH",
+              style:
+                  TextStyle(fontSize: 22, fontWeight: FontWeight.bold)),
+          SizedBox(height: 25),
+          ElevatedButton(
+            style: ElevatedButton.styleFrom(
+                backgroundColor: Color(0xFF0D47A1)),
+            onPressed: () => Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (c) => PajEnskripsyon())),
+            child: Text("ENSKRI KOUNYA",
+                style: TextStyle(color: Colors.white)),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class PajKisaNouYe extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return SingleChildScrollView(
+      padding: EdgeInsets.all(25),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text("KISA NICKTECH YE?",
+              style: TextStyle(
+                  fontSize: 18,
+                  fontWeight: FontWeight.bold,
+                  color: Color(0xFF0D47A1))),
+          SizedBox(height: 10),
+          Text(
+            "NickTech se yon enstitisyon fòmasyon nimerik ki konsantre sou inovasyon. Nou la pou nou bay jèn yo zouti teknik yo bezwen pou yo domine mache travay demen an.",
+            style: TextStyle(fontSize: 15, height: 1.5),
+          ),
+          SizedBox(height: 20),
+          Text("MISYON NOU",
+              style: TextStyle(
+                  fontSize: 16,
+                  fontWeight: FontWeight.bold,
+                  color: Color(0xFF0D47A1))),
+          SizedBox(height: 5),
+          Text(
+            "Demokratize aksè ak konesans nan Entelijans Atifisyèl (AI) ak devlopman lojisyèl pwofesyonèl.",
+            style: TextStyle(fontSize: 15, height: 1.5),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class PajKou extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Center(
+      child: Text(
+        "• Python & AI\n• Flutter Mobile\n• Cyber Securite",
+        style: TextStyle(fontSize: 18, height: 2),
+        textAlign: TextAlign.center,
+      ),
+    );
+  }
+}
+
+class PajKontak extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: EdgeInsets.all(25),
+      child: Column(
+        children: [
+          _kontakRow(Icons.email, "info@nicktech.com"),
+          _kontakRow(Icons.phone, "+509 0000-0000"),
+          _kontakRow(Icons.location_on, "Potoprens, Ayiti"),
+        ],
+      ),
+    );
+  }
+
+  Widget _kontakRow(IconData icon, String teks) {
+    return Padding(
+      padding: EdgeInsets.symmetric(vertical: 10),
+      child: Row(
+        children: [
+          Icon(icon, color: Color(0xFF0D47A1)),
+          SizedBox(width: 15),
+          Text(teks, style: TextStyle(fontSize: 16)),
+        ],
+      ),
+    );
+  }
+}
+
+class PajEnskripsyon extends StatelessWidget {
+  Widget _channKout(String label, {bool isPass = false}) {
+    return SizedBox(
+      width: 280,
+      child: Padding(
+        padding: EdgeInsets.only(bottom: 10),
+        child: TextField(
+          obscureText: isPass,
+          decoration: InputDecoration(
+            labelText: label,
+            border: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(6)),
+          ),
+        ),
+      ),
+    );
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text("ENSKRIPSYON"),
+        backgroundColor: Color(0xFF0D47A1),
+        iconTheme: IconThemeData(color: Colors.white),
+      ),
+      body: SingleChildScrollView(
+        padding: EdgeInsets.only(top: 40),
+        child: Column(
+          children: [
+            _channKout("Non"),
+            _channKout("Siyati"),
+            _channKout("Imel"),
+            _channKout("Modpas", isPass: true),
+            SizedBox(height: 20),
+            SizedBox(
+              width: 120,
+              height: 38,
+              child: ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: Color(0xFF0D47A1),
+                ),
+                onPressed: () => Navigator.pop(context),
+                child: Text("VOYE",
+                    style:
+                        TextStyle(color: Colors.white)),
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
